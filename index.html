@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Portfolio — Bérékia AMOENY</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #05080f;
+  --bg2: #080d18;
+  --bg3: #0c1220;
+  --card: #0f1828;
+  --violet: #7c3aed;
+  --violet2: #a855f7;
+  --pink: #ec4899;
+  --pink2: #f472b6;
+  --lime: #84cc16;
+  --lime2: #a3e635;
+  --orange: #f97316;
+  --amber: #fbbf24;
+  --cyan: #06b6d4;
+  --text: #f0f4ff;
+  --muted: #4a5878;
+  --border: rgba(124,58,237,0.2);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 10% 20%,rgba(124,58,237,.12) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 90% 80%,rgba(236,72,153,.1) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(132,204,22,.04) 0%,transparent 60%);}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:linear-gradient(var(--violet),var(--pink));border-radius:2px;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;transition:background .4s,border-color .4s;border-bottom:1px solid transparent;}
+nav.scrolled{background:rgba(5,8,15,.92);border-color:var(--border);backdrop-filter:blur(16px);}
+.nav-logo{font-size:1rem;font-weight:800;letter-spacing:.05em;background:linear-gradient(135deg,var(--violet2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.04em;color:var(--muted);text-decoration:none;transition:color .3s;text-transform:uppercase;}
+.nav-links a:hover{color:var(--violet2);}
+
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 3rem;position:relative;overflow:hidden;z-index:1;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:float 8s ease-in-out infinite;pointer-events:none;}
+.orb1{width:500px;height:500px;background:rgba(124,58,237,.2);top:-100px;right:-100px;animation-delay:0s;}
+.orb2{width:350px;height:350px;background:rgba(236,72,153,.15);bottom:-50px;left:10%;animation-delay:3s;}
+.orb3{width:250px;height:250px;background:rgba(132,204,22,.1);top:40%;left:60%;animation-delay:5s;}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(20px,-20px) scale(1.05);}66%{transform:translate(-15px,15px) scale(.95);}}
+
+.hero-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--violet2);display:flex;align-items:center;gap:.8rem;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s ease forwards;animation-delay:.4s;}
+.hero-eyebrow::before{content:'';width:24px;height:2px;background:linear-gradient(to right,var(--violet),var(--pink));}
+.hero-name{font-size:clamp(3.5rem,9vw,8rem);font-weight:900;line-height:.95;letter-spacing:-.03em;opacity:0;animation:fadeUp .9s ease forwards;animation-delay:.6s;}
+.name-first{display:block;color:var(--text);}
+.name-last{display:block;background:linear-gradient(135deg,var(--violet2) 0%,var(--pink) 50%,var(--amber) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{margin-top:1.5rem;font-size:1.2rem;font-weight:300;color:rgba(240,244,255,.6);max-width:560px;line-height:1.6;opacity:0;animation:fadeUp .9s ease forwards;animation-delay:.8s;}
+.hero-sub strong{color:var(--lime2);font-weight:500;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem;opacity:0;animation:fadeUp .9s ease forwards;animation-delay:1s;}
+.pill{font-size:.72rem;font-weight:600;letter-spacing:.04em;padding:.45rem 1rem;border-radius:999px;border:1px solid;transition:all .3s;cursor:default;}
+.pill-v{color:var(--violet2);border-color:rgba(168,85,247,.35);background:rgba(124,58,237,.1);}
+.pill-p{color:var(--pink2);border-color:rgba(244,114,182,.35);background:rgba(236,72,153,.1);}
+.pill-l{color:var(--lime2);border-color:rgba(163,230,53,.35);background:rgba(132,204,22,.1);}
+.pill-o{color:var(--amber);border-color:rgba(251,191,36,.35);background:rgba(249,115,22,.1);}
+.pill:hover{transform:translateY(-2px);}
+.hero-cta{display:flex;gap:1rem;margin-top:2.5rem;opacity:0;animation:fadeUp .9s ease forwards;animation-delay:1.2s;}
+.btn-primary{padding:.85rem 2rem;border-radius:8px;background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.04em;text-decoration:none;text-transform:uppercase;border:none;cursor:pointer;box-shadow:0 0 30px rgba(124,58,237,.4);transition:all .3s;}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(124,58,237,.6);}
+.btn-ghost{padding:.85rem 2rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text);font-size:.85rem;font-weight:600;letter-spacing:.04em;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.btn-ghost:hover{border-color:var(--violet2);color:var(--violet2);}
+.hero-stats{display:flex;gap:3rem;margin-top:3.5rem;opacity:0;animation:fadeUp .9s ease forwards;animation-delay:1.4s;}
+.stat-num{font-size:2.5rem;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--violet2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-label{font-size:.7rem;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+section{padding:7rem 3rem;position:relative;z-index:1;}
+.s-label{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--violet2);display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem;}
+.s-label::before{content:'';width:20px;height:2px;background:linear-gradient(to right,var(--violet),var(--pink));}
+.s-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;line-height:1.1;margin-bottom:3rem;}
+.s-title em{font-style:italic;font-family:'Fraunces',serif;font-weight:300;background:linear-gradient(135deg,var(--pink),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+#about{background:var(--bg2);border-top:1px solid rgba(124,58,237,.1);}
+.about-grid{display:grid;grid-template-columns:1fr 340px;gap:5rem;align-items:start;}
+.about-text p{font-size:1.1rem;font-weight:300;line-height:1.9;color:rgba(240,244,255,.7);margin-bottom:1.3rem;}
+.about-text p strong{color:var(--violet2);font-weight:600;}
+.riasec-block{margin-top:2rem;}
+.block-label{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+.block-label::after{content:'';flex:1;height:1px;background:rgba(124,58,237,.15);}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:.5rem;}
+.rtag{font-size:.7rem;font-weight:600;padding:.3rem .8rem;border-radius:6px;border:1px solid rgba(124,58,237,.25);background:rgba(124,58,237,.08);color:var(--violet2);transition:all .3s;cursor:default;}
+.rtag:hover{background:rgba(124,58,237,.2);transform:translateY(-2px);}
+.rtag.pink{border-color:rgba(236,72,153,.25);background:rgba(236,72,153,.08);color:var(--pink2);}
+.rtag.lime{border-color:rgba(132,204,22,.25);background:rgba(132,204,22,.08);color:var(--lime2);}
+.rtag.amber{border-color:rgba(251,191,36,.25);background:rgba(251,191,36,.08);color:var(--amber);}
+.info-card{background:var(--card);border:1px solid rgba(124,58,237,.2);border-radius:16px;padding:2rem;position:relative;overflow:hidden;}
+.info-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--violet),var(--pink),var(--amber));}
+.info-row{display:flex;gap:.8rem;padding:.75rem 0;border-bottom:1px solid rgba(124,58,237,.1);align-items:baseline;}
+.info-row:last-child{border-bottom:none;}
+.info-k{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);min-width:80px;flex-shrink:0;padding-top:2px;}
+.info-v{font-size:.95rem;font-weight:400;color:var(--text);line-height:1.4;}
+
+#competences{border-top:1px solid rgba(124,58,237,.1);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;}
+.skill-card{background:var(--card);border:1px solid rgba(124,58,237,.15);border-radius:14px;padding:1.6rem;transition:all .3s;position:relative;overflow:hidden;}
+.skill-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--violet),var(--pink));transform:scaleX(0);transition:transform .4s;transform-origin:left;}
+.skill-card:hover{border-color:rgba(168,85,247,.4);background:rgba(15,24,40,.9);transform:translateY(-4px);box-shadow:0 12px 40px rgba(124,58,237,.15);}
+.skill-card:hover::after{transform:scaleX(1);}
+.skill-icon{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--violet2);margin-bottom:.6rem;}
+.skill-card h3{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem;}
+.skill-card p{font-size:.8rem;color:rgba(240,244,255,.5);line-height:1.6;font-family:'DM Mono',monospace;}
+.skill-bar{margin-top:1rem;height:4px;background:rgba(124,58,237,.15);border-radius:2px;position:relative;}
+.skill-fill{height:100%;border-radius:2px;background:linear-gradient(to right,var(--violet),var(--pink));transform-origin:left;transform:scaleX(0);transition:transform 1.5s cubic-bezier(.16,1,.3,1);box-shadow:0 0 10px rgba(168,85,247,.5);}
+.skill-card.visible .skill-fill{transform:scaleX(1);}
+.skill-pct{position:absolute;right:0;top:-1.4rem;font-size:.6rem;font-weight:700;color:var(--violet2);font-family:'DM Mono',monospace;}
+
+#projets{background:var(--bg2);border-top:1px solid rgba(124,58,237,.1);}
+.year-divider{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;margin-top:3rem;}
+.year-divider:first-of-type{margin-top:0;}
+.year-badge{font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:.35rem 1rem;border-radius:999px;background:linear-gradient(135deg,var(--orange),var(--amber));color:#000;white-space:nowrap;}
+.year-line{flex:1;height:1px;background:rgba(249,115,22,.2);}
+
+.proj-card{background:var(--card);border:1px solid rgba(124,58,237,.15);border-radius:14px 14px 0 0;padding:1.8rem 2rem;margin-bottom:0;display:grid;grid-template-columns:auto 1fr auto;gap:1.5rem;align-items:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;}
+.proj-card.standalone{border-radius:14px;margin-bottom:1rem;}
+.proj-card::before{content:'';position:absolute;inset:0;border-radius:14px;background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(236,72,153,.05));opacity:0;transition:opacity .3s;}
+.proj-card:hover{border-color:rgba(168,85,247,.45);transform:translateY(-2px);box-shadow:0 10px 40px rgba(124,58,237,.18);}
+.proj-card:hover::before{opacity:1;}
+.proj-card.open-card{border-color:rgba(168,85,247,.5);border-radius:14px 14px 0 0;transform:none;box-shadow:0 0 0 1px rgba(168,85,247,.3);}
+.proj-num{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:400;padding:.5rem .8rem;border-radius:8px;background:rgba(124,58,237,.15);color:var(--violet2);white-space:nowrap;position:relative;z-index:1;}
+.proj-info{position:relative;z-index:1;}
+.proj-info h3{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.3rem;}
+.proj-info p{font-size:.83rem;color:rgba(240,244,255,.5);line-height:1.5;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem;}
+.ptag{font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .6rem;border-radius:5px;}
+.ptag-v{color:var(--violet2);background:rgba(124,58,237,.12);}
+.ptag-p{color:var(--pink2);background:rgba(236,72,153,.12);}
+.ptag-l{color:var(--lime2);background:rgba(132,204,22,.12);}
+.ptag-o{color:var(--amber);background:rgba(249,115,22,.12);}
+.ptag-c{color:var(--cyan);background:rgba(6,182,212,.12);}
+.proj-arrow{width:40px;height:40px;border-radius:10px;border:1px solid rgba(124,58,237,.25);background:rgba(124,58,237,.08);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--violet2);transition:all .3s;flex-shrink:0;position:relative;z-index:1;}
+.proj-card:hover .proj-arrow{background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;border-color:transparent;}
+
+.proj-detail{display:none;background:#0a1020;border:1px solid rgba(168,85,247,.35);border-top:none;border-radius:0 0 14px 14px;padding:2.5rem;margin-bottom:1rem;position:relative;}
+.proj-detail.open{display:block;animation:slideDown .35s ease;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.proj-detail::before{content:'';position:absolute;top:0;left:2rem;right:2rem;height:1px;background:linear-gradient(to right,transparent,rgba(168,85,247,.4),transparent);}
+
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+.detail-section h4{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--violet2);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+.detail-section h4::before{content:'';width:12px;height:2px;background:var(--violet);}
+.detail-section p{font-size:.9rem;color:rgba(240,244,255,.65);line-height:1.8;}
+.detail-section ul{list-style:none;}
+.detail-section ul li{font-size:.87rem;color:rgba(240,244,255,.6);padding:.3rem 0;padding-left:1.2rem;position:relative;line-height:1.6;}
+.detail-section ul li::before{content:'▸';position:absolute;left:0;color:var(--pink);font-size:.7rem;top:.4rem;}
+.resource-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem;}
+.rchip{font-size:.68rem;font-weight:600;padding:.35rem .8rem;border-radius:7px;display:flex;align-items:center;gap:.4rem;}
+.rchip-soft{color:var(--cyan);background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.2);}
+.rchip-hard{color:var(--lime2);background:rgba(132,204,22,.12);border:1px solid rgba(132,204,22,.2);}
+.rchip-meth{color:var(--amber);background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.2);}
+.rchip-skill{color:var(--pink2);background:rgba(236,72,153,.12);border:1px solid rgba(236,72,153,.2);}
+.comp-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:8px;font-size:.72rem;font-weight:700;background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(236,72,153,.2));border:1px solid rgba(124,58,237,.3);color:var(--text);margin-bottom:1.5rem;}
+
+#objectifs{border-top:1px solid rgba(124,58,237,.1);}
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;}
+.obj-card{background:var(--card);border:1px solid rgba(124,58,237,.15);border-radius:14px;padding:1.8rem;transition:all .3s;position:relative;overflow:hidden;}
+.obj-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;border-radius:14px 0 0 14px;}
+.obj-card:nth-child(1)::before{background:linear-gradient(to bottom,var(--violet),var(--pink));}
+.obj-card:nth-child(2)::before{background:linear-gradient(to bottom,var(--lime),var(--cyan));}
+.obj-card:nth-child(3)::before{background:linear-gradient(to bottom,var(--orange),var(--amber));}
+.obj-card:nth-child(4)::before{background:linear-gradient(to bottom,var(--pink),var(--violet2));}
+.obj-card:hover{transform:translateY(-4px);border-color:rgba(168,85,247,.3);box-shadow:0 12px 40px rgba(124,58,237,.15);}
+.obj-icon{font-size:2rem;margin-bottom:1rem;}
+.obj-card h3{font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--violet2);margin-bottom:.7rem;}
+.obj-card p{font-size:.95rem;font-weight:300;color:rgba(240,244,255,.65);line-height:1.75;}
+
+#contact{background:var(--bg2);border-top:1px solid rgba(124,58,237,.1);}
+.contact-wrap{max-width:680px;}
+.contact-wrap p{font-size:1.1rem;font-weight:300;color:rgba(240,244,255,.6);line-height:1.8;margin-bottom:2.5rem;}
+.contact-email-btn{display:inline-flex;align-items:center;gap:.8rem;padding:1.2rem 2.5rem;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;font-size:1rem;font-weight:700;text-decoration:none;box-shadow:0 0 40px rgba(124,58,237,.4);transition:all .3s;}
+.contact-email-btn:hover{transform:translateY(-3px);box-shadow:0 0 70px rgba(124,58,237,.6);}
+.contact-details{display:flex;flex-wrap:wrap;gap:1.5rem;margin-top:2rem;}
+.cdet{font-size:.82rem;color:var(--muted);display:flex;align-items:center;gap:.5rem;font-family:'DM Mono',monospace;}
+.cdet span{color:var(--violet2);}
+
+footer{padding:1.5rem 3rem;border-top:1px solid rgba(124,58,237,.1);display:flex;justify-content:space-between;align-items:center;font-size:.7rem;color:var(--muted);font-family:'DM Mono',monospace;background:var(--bg);position:relative;z-index:1;}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;} .nav-links{display:none;}
+  section{padding:5rem 1.5rem;} #hero{padding:0 1.5rem;}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .proj-card{grid-template-columns:auto 1fr;} .proj-arrow{display:none;}
+  .hero-stats{gap:1.5rem;flex-wrap:wrap;}
+  .detail-grid{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:.5rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">Bérékia AMOENY</a>
+  <ul class="nav-links">
+    <li><a href="#about">Profil</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#objectifs">Objectifs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-eyebrow">E-Portfolio · BUT GMP · IUT Saint-Denis — Sorbonne Paris Nord</div>
+  <h1 class="hero-name">
+    <span class="name-first">Bérékia</span>
+    <span class="name-last">AMOENY</span>
+  </h1>
+  <p class="hero-sub">Étudiant en <strong>Génie Mécanique & Productique</strong> passionné par l'automobile, l'aéronautique et les solutions mécaniques innovantes. Originaire du Togo.</p>
+  <div class="hero-pills">
+    <span class="pill pill-v">SolidWorks</span>
+    <span class="pill pill-p">RobotStudio</span>
+    <span class="pill pill-l">Conception 3D</span>
+    <span class="pill pill-o">Usinage CNC</span>
+    <span class="pill pill-v">Gestion de projet</span>
+    <span class="pill pill-p">Développement durable</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projets" class="btn-primary">Voir mes projets</a>
+    <a href="#contact" class="btn-ghost">Me contacter</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num">19</div><div class="stat-label">Ans</div></div>
+    <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Années BUT GMP</div></div>
+    <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Projets SAE</div></div>
+    <div class="stat-item"><div class="stat-num">C1→C4</div><div class="stat-label">Compétences</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="s-label">01 — Qui suis-je ?</div>
+  <h2 class="s-title">Mon <em>identité</em></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Je me nomme <strong>AMOENY Komlan Bérékia Rodrigue</strong>, j'ai 19 ans. Je viens du <strong>Togo</strong>, situé en Afrique de l'Ouest. Étant l'aîné, on exige plus de responsabilités de ma part, que ce soit au niveau scolaire ou à la maison.</p>
+      <p>Dans le cycle secondaire, j'ai souvent figuré parmi les <strong>meilleurs élèves</strong> de mes classes. Je me décrirais comme quelqu'un de <strong>travailleur et d'ambitieux</strong>. Les personnes qui m'ont le plus marqué sont mes parents pour m'avoir inculqué des valeurs comme le <strong>respect</strong>, le sens des responsabilités et l'importance du travail.</p>
+      <div class="riasec-block">
+        <div class="block-label">Bilan RIASEC — Qualités</div>
+        <div class="tag-cloud">
+          <span class="rtag">Réaliste</span><span class="rtag">Bricolage</span>
+          <span class="rtag pink">Rigoureux</span><span class="rtag pink">Méthodique</span>
+          <span class="rtag pink">Ponctuel</span><span class="rtag pink">Autonome</span>
+          <span class="rtag lime">Esprit d'équipe</span><span class="rtag lime">Précision</span>
+          <span class="rtag amber">Gestion du temps</span><span class="rtag amber">Visualiser</span>
+        </div>
+      </div>
+      <div class="riasec-block" style="margin-top:1.5rem">
+        <div class="block-label">Passions & loisirs</div>
+        <div class="tag-cloud">
+          <span class="rtag pink">🏀 Basketball</span><span class="rtag">🎮 Jeux vidéo</span>
+          <span class="rtag lime">🎵 Musique</span><span class="rtag">📚 Lecture · BD</span>
+          <span class="rtag amber">🚗 Automobile</span><span class="rtag">✈️ Aéronautique</span>
+          <span class="rtag pink">💡 Innovations tech</span><span class="rtag lime">🏃 Sport</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="info-card">
+        <div class="info-row"><span class="info-k">Nom</span><span class="info-v">AMOENY Komlan Bérékia Rodrigue</span></div>
+        <div class="info-row"><span class="info-k">Âge</span><span class="info-v">19 ans</span></div>
+        <div class="info-row"><span class="info-k">Origine</span><span class="info-v">Togo — Afrique de l'Ouest</span></div>
+        <div class="info-row"><span class="info-k">Formation</span><span class="info-v">BUT GMP · 2ᵉ année</span></div>
+        <div class="info-row"><span class="info-k">Établissement</span><span class="info-v">IUT Saint-Denis · Sorbonne Paris Nord</span></div>
+        <div class="info-row"><span class="info-k">Logiciels</span><span class="info-v">SolidWorks · RobotStudio · MS Project · Excel</span></div>
+        <div class="info-row"><span class="info-k">Profil</span><span class="info-v">Travailleur · Ambitieux · Leader</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETENCES -->
+<section id="competences">
+  <div class="s-label">02 — Savoir-faire</div>
+  <h2 class="s-title">Mes <em>compétences</em></h2>
+  <div class="skills-grid" id="skillGrid">
+    <div class="skill-card"><div class="skill-icon">C1 · Spécifier</div><h3>Analyse & Conception</h3><p>Analyse fonctionnelle, diagramme interacteurs, analyse cinématique, besoin client</p><div class="skill-bar"><div class="skill-fill" style="width:85%"><span class="skill-pct">85%</span></div></div></div>
+    <div class="skill-card"><div class="skill-icon">C2 · Déterminer</div><h3>Solution Conceptuelle</h3><p>Modélisation SolidWorks, calculs mécaniques statiques, dimensionnement de pièces</p><div class="skill-bar"><div class="skill-fill" style="width:80%"><span class="skill-pct">80%</span></div></div></div>
+    <div class="skill-card"><div class="skill-icon">C3 · Réaliser</div><h3>Fabrication & Prototypage</h3><p>Usinage CNC (HAAS ST10), découpe laser, impression 3D, contrats de phase, métrologie</p><div class="skill-bar"><div class="skill-fill" style="width:75%"><span class="skill-pct">75%</span></div></div></div>
+    <div class="skill-card"><div class="skill-icon">C4 · Exploiter</div><h3>Pilotage de Production</h3><p>TRS/TRG, tableaux Excel, amélioration continue, organisation d'atelier, indicateurs KPI</p><div class="skill-bar"><div class="skill-fill" style="width:70%"><span class="skill-pct">70%</span></div></div></div>
+    <div class="skill-card"><div class="skill-icon">CAO/FAO</div><h3>SolidWorks</h3><p>Modélisation 3D, assemblage, simulation von Mises, mise en plan, dessin de définition</p><div class="skill-bar"><div class="skill-fill" style="width:82%"><span class="skill-pct">82%</span></div></div></div>
+    <div class="skill-card"><div class="skill-icon">Robotique</div><h3>RobotStudio & RAPID</h3><p>Simulation ABB 4600, programmation trajectoires RAPID, implantation îlot de production</p><div class="skill-bar"><div class="skill-fill" style="width:68%"><span class="skill-pct">68%</span></div></div></div>
+    <div class="skill-card"><div class="skill-icon">Management</div><h3>Gestion de Projet</h3><p>Microsoft Project, matrice RACI, planification, calcul coûts, ressources humaines & matérielles</p><div class="skill-bar"><div class="skill-fill" style="width:72%"><span class="skill-pct">72%</span></div></div></div>
+    <div class="skill-card"><div class="skill-icon">Soft Skills</div><h3>Travail en Équipe</h3><p>Binôme et groupe, communication, leadership, animation de réunion, esprit collectif</p><div class="skill-bar"><div class="skill-fill" style="width:90%"><span class="skill-pct">90%</span></div></div></div>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="s-label">03 — Réalisations</div>
+  <h2 class="s-title">Mes <em>projets SAE</em></h2>
+  <p style="font-size:.82rem;color:var(--muted);margin-top:-1.5rem;margin-bottom:3rem;font-family:'DM Mono',monospace">▸ Cliquez sur un projet pour afficher ses détails et ressources utilisées</p>
+
+  <div class="year-divider">
+    <span class="year-badge">1ʳᵉ année · 2023/2024</span><div class="year-line"></div>
+  </div>
+
+  <!-- SAE 1.1 -->
+  <div class="proj-card" id="card-d11" onclick="toggleDetail('d11')">
+    <div class="proj-num">SAE 1.1</div>
+    <div class="proj-info"><h3>Analyse de produit grand public — Taille-haie Bosch AHS 55-20 Li</h3><p>Analyse complète mécanique, électrique, matériaux et procédés en binôme</p><div class="proj-tags"><span class="ptag ptag-v">C1 — Spécifier</span><span class="ptag ptag-c">Analyse fonctionnelle</span><span class="ptag ptag-l">Schéma cinématique</span></div></div>
+    <div class="proj-arrow" id="arr-d11">↗</div>
+  </div>
+  <div class="proj-detail" id="d11">
+    <div class="comp-badge">✦ C1 — Spécifier : déterminer le besoin d'un client dans un cas simple</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>Travail en binôme sur l'analyse complète du taille-haie Bosch AHS 55-20 Li. L'objectif était d'étudier le système dans tous ses aspects pour mettre en exercice les compétences d'analyse.</p>
+        <ul style="margin-top:.8rem">
+          <li>Analyser le fonctionnement du système mécanique</li>
+          <li>Analyser le système électrique (batterie, moteur, carte électronique)</li>
+          <li>Identifier les matériaux de fabrication de chaque pièce</li>
+          <li>Identifier les procédés de fabrication</li>
+          <li>Réaliser le diagramme des interacteurs</li>
+          <li>Réaliser le schéma cinématique</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-hard">🔧 Taille-haie Bosch AHS 55-20 Li</span>
+          <span class="rchip rchip-meth">📐 Analyse fonctionnelle</span>
+          <span class="rchip rchip-meth">📊 Diagramme des interacteurs</span>
+          <span class="rchip rchip-meth">⚙️ Schéma cinématique</span>
+          <span class="rchip rchip-soft">💻 Support de présentation</span>
+          <span class="rchip rchip-skill">👥 Travail en binôme</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Matériaux identifiés</h4>
+        <ul>
+          <li>Plastiques ABS / Polypropylène → boîtier et poignées</li>
+          <li>Acier trempé → lames de coupe</li>
+          <li>Aluminium / alliages → engrenages internes</li>
+          <li>Caoutchouc TPE → revêtement des poignées</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAE 1.2 -->
+  <div class="proj-card" id="card-d12" onclick="toggleDetail('d12')">
+    <div class="proj-num">SAE 1.2</div>
+    <div class="proj-info"><h3>Modification d'un système mécanique — Bride hydraulique</h3><p>Augmentation de la force de serrage de +20 % à pression constante (7 bars)</p><div class="proj-tags"><span class="ptag ptag-v">C2 — Solution conceptuelle</span><span class="ptag ptag-c">SolidWorks</span><span class="ptag ptag-p">Calcul statique</span></div></div>
+    <div class="proj-arrow" id="arr-d12">↗</div>
+  </div>
+  <div class="proj-detail" id="d12">
+    <div class="comp-badge">✦ C2 — Déterminer la solution conceptuelle : proposer des solutions dans un cas simple</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>Augmentation de la force de serrage d'une bride hydraulique de 20 % sans modifier la pression (7 bars). Modification de la longueur L2 du levier puis remodélisation sur SolidWorks.</p>
+        <ul style="margin-top:.8rem">
+          <li>Modélisation du système initial sur SolidWorks</li>
+          <li>Analyse cinématique : identification des liaisons (glissant, normale, pivot)</li>
+          <li>Analyse mécanique statique — théorème des moments</li>
+          <li>Calcul de la nouvelle longueur L2 → L2 ≈ 30 mm modifié</li>
+          <li>Remodélisation du levier modifié et assemblage de la nouvelle bride</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-soft">🖥️ SolidWorks</span>
+          <span class="rchip rchip-meth">📐 Calcul mécanique statique</span>
+          <span class="rchip rchip-meth">⚙️ Schéma cinématique</span>
+          <span class="rchip rchip-meth">📊 Graphe de liaisons</span>
+          <span class="rchip rchip-meth">📏 Théorème des moments</span>
+          <span class="rchip rchip-hard">🔩 Bride hydraulique DECMA</span>
+          <span class="rchip rchip-meth">📋 Rapport technique SAE 1.2</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Résultat</h4>
+        <p>Modification de L2 permettant d'atteindre une force de serrage accrue de 20 % à pression constante de 7 bars. Modèle SolidWorks validé et assemblage reconfiguré.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAE 1.3 -->
+  <div class="proj-card" id="card-d13" onclick="toggleDetail('d13')">
+    <div class="proj-num">SAE 1.3</div>
+    <div class="proj-info"><h3>Maquette numérique → Prototype physique — Support moteur RSPro Micro</h3><p>Modélisation 3D, découpe laser, contrôle qualité au projecteur de profil</p><div class="proj-tags"><span class="ptag ptag-v">C3 — Réaliser</span><span class="ptag ptag-c">SolidWorks</span><span class="ptag ptag-l">Découpe laser</span><span class="ptag ptag-p">Métrologie</span></div></div>
+    <div class="proj-arrow" id="arr-d13">↗</div>
+  </div>
+  <div class="proj-detail" id="d13">
+    <div class="comp-badge">✦ C3 — Réaliser : concrétiser une solution simple</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>Réalisation d'un prototype de support pour le micromoteur RSPro Micro, permettant l'assemblage sur profilé ALU 20×20 et 20×40 avec une amplitude de déplacement de 20 mm sans dévisser complètement.</p>
+        <ul style="margin-top:.8rem">
+          <li>Étape 1 — Modélisation 3D sur SolidWorks</li>
+          <li>Étape 2 — Fabrication en découpe laser (bois MDF)</li>
+          <li>Étape 3 — Contrôle qualité au projecteur de profil SAGEM</li>
+          <li>Vérification ∅ de perçages, géométrie, épaisseur</li>
+          <li>Rédaction d'un article scientifique retraçant la réalisation</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-soft">🖥️ SolidWorks</span>
+          <span class="rchip rchip-hard">🔆 Découpeuse laser FOCUS</span>
+          <span class="rchip rchip-hard">🔬 Projecteur de profil SAGEM</span>
+          <span class="rchip rchip-hard">⚙️ Micromoteur RSPro Micro</span>
+          <span class="rchip rchip-hard">🔩 Profilé ALU 20×20 / 20×40</span>
+          <span class="rchip rchip-meth">📄 Article scientifique</span>
+          <span class="rchip rchip-meth">📐 Dessin de définition</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Résultats contrôle qualité</h4>
+        <p>Pièce globalement conforme aux spécifications (épaisseur légèrement modifiée). Déplacement de 0 à 20 mm sur le profilé validé sans dévisser complètement.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAE 1.4 -->
+  <div class="proj-card standalone" id="card-d14" onclick="toggleDetail('d14')">
+    <div class="proj-num">SAE 1.4</div>
+    <div class="proj-info"><h3>Organisation structurelle de l'industrie — Interview Safran Aircraft Engines</h3><p>Enquête sur un pilote d'industrialisation à Gennevilliers</p><div class="proj-tags"><span class="ptag ptag-v">C4 — Exploiter</span><span class="ptag ptag-o">Safran Aircraft Engines</span></div></div>
+    <div class="proj-arrow" id="arr-d14">↗</div>
+  </div>
+  <div class="proj-detail" id="d14" style="margin-bottom:1rem">
+    <div class="comp-badge">✦ C4 — Exploiter : déterminer les sources d'informations en entreprise</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>Interview d'un pilote d'industrialisation de Safran Aircraft Engines à Gennevilliers (M. TRERIC), avec mon binôme, sur ses activités, rôles, conditions de travail, formation et évolution de carrière.</p>
+        <ul style="margin-top:.8rem">
+          <li>Industrialisation de procédés de fabrication</li>
+          <li>Introduction de nouvelles machines aux processus</li>
+          <li>Coordination des équipes et suivi de projets</li>
+          <li>Optimisation des coûts et délais</li>
+          <li>Formation : Bac S → École d'ingénieur spécialisée mécanique</li>
+          <li>Évolution envisagée : Chef de ligne de production</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-skill">🎤 Interview industriel</span>
+          <span class="rchip rchip-soft">💼 Support de présentation</span>
+          <span class="rchip rchip-meth">🏭 Safran Aircraft Engines</span>
+          <span class="rchip rchip-skill">🔍 Recherches complémentaires</span>
+          <span class="rchip rchip-skill">👥 Travail en binôme</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Portrait de l'industriel</h4>
+        <ul>
+          <li>M. TRERIC — Pilote d'industrialisation</li>
+          <li>Safran Aircraft Engines, Gennevilliers</li>
+          <li>Opération sur site de production, travail en équipe</li>
+          <li>Salaire estimé : 40 000 €/an (≈ 3 330 €/mois)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2e année -->
+  <div class="year-divider">
+    <span class="year-badge">2ᵉ année · 2024/2025</span><div class="year-line"></div>
+  </div>
+
+  <!-- SAE 2.1 -->
+  <div class="proj-card" id="card-d21" onclick="toggleDetail('d21')">
+    <div class="proj-num">SAE 2.1</div>
+    <div class="proj-info"><h3>Spécification des processus d'élaboration — Chaise, trépied, structure triangulée</h3><p>Reconception + Bureau des Méthodes pour une série de 5 000 pièces</p><div class="proj-tags"><span class="ptag ptag-v">C1 — Spécifier</span><span class="ptag ptag-c">SolidWorks</span><span class="ptag ptag-l">Bureau des méthodes</span></div></div>
+    <div class="proj-arrow" id="arr-d21">↗</div>
+  </div>
+  <div class="proj-detail" id="d21">
+    <div class="comp-badge">✦ C1 — Déterminer le besoin d'un client dans un cas simple</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>Deux étapes : reconception (bureau d'études) et bureau des méthodes. Remodélisation de 3 systèmes, conception de pièces de remplacement (les "Noix"), étude comparative des procédés.</p>
+        <ul style="margin-top:.8rem">
+          <li>Remodélisation 3D : chaise pliable, trépied, structure triangulée</li>
+          <li>Conception des noix de remplacement (pièces centrales)</li>
+          <li>Étude comparative : usinage vs moulage vs injection plastique</li>
+          <li>Choix du procédé optimal pour série de 5 000 pièces</li>
+          <li>Identification des contraintes géométriques et dimensionnelles</li>
+          <li>Production de la documentation technique BE</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-soft">🖥️ SolidWorks</span>
+          <span class="rchip rchip-meth">📊 Étude comparative procédés</span>
+          <span class="rchip rchip-meth">📐 Bureau d'études (BE)</span>
+          <span class="rchip rchip-meth">📋 Bureau des méthodes (BM)</span>
+          <span class="rchip rchip-hard">🪑 Chaise pliable (système réel)</span>
+          <span class="rchip rchip-hard">📷 Trépied (système réel)</span>
+          <span class="rchip rchip-hard">🏗️ Structure triangulée (système réel)</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Procédés comparés</h4>
+        <ul>
+          <li>Usinage — enlèvement de matière</li>
+          <li>Mécanosoudage</li>
+          <li>Injection plastique / fonderie</li>
+          <li>Fabrication additive (impression 3D)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAE 2.2 -->
+  <div class="proj-card" id="card-d22" onclick="toggleDetail('d22')">
+    <div class="proj-num">SAE 2.2</div>
+    <div class="proj-info"><h3>Implantation d'un îlot robotisé de production — Robot ABB 4600</h3><p>Porte-outil pompe à vide + simulation RobotStudio avec 3 feutres de couleurs</p><div class="proj-tags"><span class="ptag ptag-v">C2 — Solution conceptuelle</span><span class="ptag ptag-c">RobotStudio</span><span class="ptag ptag-p">RAPID</span><span class="ptag ptag-l">SolidWorks</span></div></div>
+    <div class="proj-arrow" id="arr-d22">↗</div>
+  </div>
+  <div class="proj-detail" id="d22">
+    <div class="comp-badge">✦ C2 — Développer et proposer des solutions dans un cas simple</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>Conception d'un porte-outil par pompe à vide (PLA imprimé 3D) pour robot ABB 1400, saisie feutre Maxiflo ⌀16 mm. Simulation ABB IRB 4600 sur RobotStudio : dessin losange, cercle, croix avec 3 marqueurs.</p>
+        <ul style="margin-top:.8rem">
+          <li>Solution finale : pompe à vide par air comprimé (PLA)</li>
+          <li>S'adapte à toutes tailles de feutres, léger, pas de réglage</li>
+          <li>Implantation : robot + 2 tables + râtelier + 3 marqueurs + feuille A4</li>
+          <li>Programmation RAPID : losange (bleu), cercle (rouge), croix (vert)</li>
+          <li>Trajectoires en MoveL, attachement/détachement PulseDO</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-soft">🤖 RobotStudio ABB</span>
+          <span class="rchip rchip-soft">🖥️ SolidWorks</span>
+          <span class="rchip rchip-meth">💻 Programmation RAPID</span>
+          <span class="rchip rchip-hard">🦾 Robot ABB IRB 1400</span>
+          <span class="rchip rchip-hard">🦾 Robot ABB IRB 4600</span>
+          <span class="rchip rchip-hard">🖊️ Feutre Maxiflo MWL5S-B ⌀16mm</span>
+          <span class="rchip rchip-hard">🖨️ Imprimante 3D PLA</span>
+          <span class="rchip rchip-meth">💨 Pompe à vide air comprimé</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Résultat final</h4>
+        <p>Simulation validée : losange bleu, cercle rouge, croix verte dessinés en automatique. Projet enrichissant sur RobotStudio et la logique de station RAPID.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAE 2.3 -->
+  <div class="proj-card" id="card-d23" onclick="toggleDetail('d23')">
+    <div class="proj-num">SAE 2.3</div>
+    <div class="proj-info"><h3>Fabrication d'une pièce unitaire — Pieds de minitable de billard</h3><p>Production sur tour CN HAAS ST10 — APEF, contrat de phase, essais et production réelle</p><div class="proj-tags"><span class="ptag ptag-v">C3 — Réaliser</span><span class="ptag ptag-c">Tour CN HAAS ST10</span><span class="ptag ptag-l">G-Code</span><span class="ptag ptag-p">APEF</span></div></div>
+    <div class="proj-arrow" id="arr-d23">↗</div>
+  </div>
+  <div class="proj-detail" id="d23">
+    <div class="comp-badge">✦ C3 — Réaliser / concrétiser une solution simple</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>Dans le cadre d'une mini-entreprise (groupe de TD), production d'une minitable de billard. Rôle : production des pieds sur tour CN HAAS ST10. Matière : Aluminium EN AW 2017.</p>
+        <ul style="margin-top:.8rem">
+          <li>Établissement d'un APEF (avant-projet d'étude de fabrication)</li>
+          <li>Rédaction du contrat de phase (Phase N°20)</li>
+          <li>Essais en atelier : 8 heures pour corriger le G-Code</li>
+          <li>Production réelle : 3 heures, relevé des données temps/pièces</li>
+          <li>Vérification des spécifications géométriques et dimensionnelles</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-hard">🔩 Tour CN HAAS ST10</span>
+          <span class="rchip rchip-meth">💻 G-Code (programme 060100)</span>
+          <span class="rchip rchip-meth">📋 Contrat de phase BM</span>
+          <span class="rchip rchip-meth">📐 APEF</span>
+          <span class="rchip rchip-hard">🏗️ Aluminium EN AW 2017</span>
+          <span class="rchip rchip-soft">🖥️ SolidWorks (dessin de définition)</span>
+          <span class="rchip rchip-meth">📏 Métrologie conventionnelle</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Paramètres d'usinage</h4>
+        <ul>
+          <li>Dressage : Vc 400 m/min, N 6386 tr/min, Vf 2546 mm/min</li>
+          <li>Profilage : Vc 500 m/min, N 7962 tr/min, Vf 1592 mm/min</li>
+          <li>Gorgeage & Tronçonnage : Vc 500 / 70 m/min</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAE 2.4 -->
+  <div class="proj-card" id="card-d24" onclick="toggleDetail('d24')">
+    <div class="proj-num">SAE 2.4</div>
+    <div class="proj-info"><h3>Pilotage d'une production stabilisée — Analyse & amélioration continue</h3><p>TRS/TRG, coûts de revient, propositions d'amélioration de la production</p><div class="proj-tags"><span class="ptag ptag-v">C4 — Exploiter</span><span class="ptag ptag-c">Excel</span><span class="ptag ptag-l">TRS/TRG</span><span class="ptag ptag-o">Amélioration continue</span></div></div>
+    <div class="proj-arrow" id="arr-d24">↗</div>
+  </div>
+  <div class="proj-detail" id="d24">
+    <div class="comp-badge">✦ C4 — Exploiter / Déterminer les sources d'information en entreprise</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>À partir des indicateurs de la SAE 2.3 : tableaux Excel d'analyse, propositions d'amélioration, calculs TRS/TRG, coûts de revient théoriques et réels.</p>
+        <ul style="margin-top:.8rem">
+          <li>Relevé des données : temps de fabrication, pannes, temps perdus</li>
+          <li>TRS réel : 5,38 % → après amélioration : 70,61 %</li>
+          <li>TRG réel : 3,07 % → après amélioration : 55,53 %</li>
+          <li>Coût de revient réel : 90 000 € / Théorique : 4,86 €</li>
+          <li>3 propositions d'amélioration concrètes</li>
+          <li>Diagrammes camembert (répartition des temps)</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-soft">📊 Microsoft Excel</span>
+          <span class="rchip rchip-meth">📈 Indicateurs TRS / TRG</span>
+          <span class="rchip rchip-meth">🥧 Diagramme camembert</span>
+          <span class="rchip rchip-meth">💰 Calcul coût de revient</span>
+          <span class="rchip rchip-meth">🔧 Amélioration continue</span>
+          <span class="rchip rchip-skill">👥 Animation de réunion</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Améliorations proposées</h4>
+        <ul>
+          <li>1 — Meilleure coordination avec l'équipe d'ouverture</li>
+          <li>2 — Quantité suffisante de brut exportable en amont</li>
+          <li>3 — Outils de rechange pour éviter arrêts machine imprévus</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAE 2.23 -->
+  <div class="proj-card" id="card-d223" onclick="toggleDetail('d223')">
+    <div class="proj-num">SAE 2.23</div>
+    <div class="proj-info"><h3>Pièce de sécurité en traction — Biellette de barrière automatique DECMA PARK</h3><p>Dimensionnement, simulation von Mises, fabrication et test sur banc d'essais</p><div class="proj-tags"><span class="ptag ptag-v">C2</span><span class="ptag ptag-l">C3</span><span class="ptag ptag-c">SolidWorks Simulation</span><span class="ptag ptag-p">Banc d'essais</span></div></div>
+    <div class="proj-arrow" id="arr-d223">↗</div>
+  </div>
+  <div class="proj-detail" id="d223">
+    <div class="comp-badge">✦ C2 + C3 — Proposer des solutions et concrétiser une solution simple</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>Conception et dimensionnement d'une biellette remplaçant le tendeur d'une barrière automatique DECMA PARK, travaillant en traction, restant dans le domaine élastique linéaire.</p>
+        <ul style="margin-top:.8rem">
+          <li>Calcul des efforts dans la biellette selon les données de la barrière</li>
+          <li>Étude statique (barrière horizontale = effort max)</li>
+          <li>Dimensionnement : section rectangulaire, largeur à déterminer</li>
+          <li>Modélisation SolidWorks + simulation contraintes von Mises</li>
+          <li>Formes allégées : perçages et entailles symétriques</li>
+          <li>Fabrication découpe laser + tests sur banc de traction</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-soft">🖥️ SolidWorks</span>
+          <span class="rchip rchip-soft">⚡ SolidWorks Simulation</span>
+          <span class="rchip rchip-hard">🔆 Découpeuse laser LSXX</span>
+          <span class="rchip rchip-hard">🧪 Banc d'essais de traction</span>
+          <span class="rchip rchip-meth">📐 Calcul traction / contraintes</span>
+          <span class="rchip rchip-meth">📋 Cahier des charges DECMA PARK</span>
+          <span class="rchip rchip-meth">📏 Dessin de définition</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Données biellette</h4>
+        <ul>
+          <li>Longueur : 150 mm · Largeur : 12 mm · Épaisseur : 5 mm</li>
+          <li>⌀ perçage : 12 mm · Rayon coins : R15 mm</li>
+          <li>Contrainte max von Mises : ≈ 415 300 N/mm²</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- HANDI'CAP -->
+  <div class="proj-card" id="card-dhandi" onclick="toggleDetail('dhandi')">
+    <div class="proj-num">HANDI'CAP</div>
+    <div class="proj-info"><h3>Projet Handi'cap — Amélioration Etac Turner Pro pour personnes à mobilité réduite</h3><p>Intégration de poignées orientables ±30° pour réduire les contraintes articulaires (arthrose)</p><div class="proj-tags"><span class="ptag ptag-v">C1</span><span class="ptag ptag-p">C2</span><span class="ptag ptag-c">SysML</span><span class="ptag ptag-l">Innovation médicale</span></div></div>
+    <div class="proj-arrow" id="arr-dhandi">↗</div>
+  </div>
+  <div class="proj-detail" id="dhandi">
+    <div class="comp-badge">✦ C1 + C2 — Spécifier et proposer une solution inclusive</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>Concevoir des solutions mécaniques pour rendre plus accessible la vie quotidienne aux personnes en situation de handicap, en prenant en compte la transition écologique et l'inclusion.</p>
+        <ul style="margin-top:.8rem">
+          <li>Pitch initial : exosquelette semi-actif avec micromoteurs et ressorts-vérins</li>
+          <li>Projet retenu : amélioration de l'Etac Turner Pro</li>
+          <li>Innovation : poignées orientables ±30° (type accélérateur moto)</li>
+          <li>Objectif : réduire contraintes articulaires (arthrose)</li>
+          <li>Diagramme SysML cas d'utilisation, exigences, contexte</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-soft">🖥️ SolidWorks</span>
+          <span class="rchip rchip-meth">📊 Diagrammes SysML</span>
+          <span class="rchip rchip-hard">♿ Etac Turner Pro (système réel)</span>
+          <span class="rchip rchip-meth">📋 Cahier des charges médical</span>
+          <span class="rchip rchip-meth">🎤 Pitch de présentation (Livrable 1/2/3)</span>
+          <span class="rchip rchip-skill">👥 Binôme + Professeur référent</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Exigences clés (SysML)</h4>
+        <ul>
+          <li>Charge max supportée : 150 kg</li>
+          <li>Coût de fabrication maîtrisé : &lt; 400 €</li>
+          <li>Compatible normes médicales et produits désinfectants</li>
+          <li>Poignées orientables pour réduire contraintes articulaires</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAI -->
+  <div class="proj-card standalone" id="card-dcai" onclick="toggleDetail('dcai')">
+    <div class="proj-num">CAI</div>
+    <div class="proj-info"><h3>Concentrateur solaire + Moteur Stirling — Pompage d'eau au Togo (Projet FAMIDA)</h3><p>Étude de faisabilité pour irriguer 1 000 m² à Kara — planification MS Project + RACI</p><div class="proj-tags"><span class="ptag ptag-v">C1</span><span class="ptag ptag-p">C2</span><span class="ptag ptag-c">MS Project</span><span class="ptag ptag-o">Énergie renouvelable</span><span class="ptag ptag-l">Togo</span></div></div>
+    <div class="proj-arrow" id="arr-dcai">↗</div>
+  </div>
+  <div class="proj-detail" id="dcai" style="margin-bottom:1rem">
+    <div class="comp-badge">✦ CAI — Chargé d'Affaires Industrielles · C1 + C2</div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <h4>Description du projet</h4>
+        <p>Concentrateur solaire thermique couplé à un moteur Stirling pour pomper de l'eau et irriguer un champ de 1 000 m² à Kara, Togo — Projet FAMIDA (Diasporeines Africa).</p>
+        <ul style="margin-top:.8rem">
+          <li>Étude de faisabilité complète (technique, économique, environnementale)</li>
+          <li>Contexte : irradiation solaire ≈ 5 kWh/m²/jour au Togo et Madagascar</li>
+          <li>Partenariat : IUT Saint-Denis + IUT Soissons + lycée Marie Curie</li>
+          <li>Planification Microsoft Project (7 phases de tâches détaillées)</li>
+          <li>Matrice RACI sur Excel</li>
+          <li>Calcul coût de production de la bielle : 1 150,93 € (unitaire)</li>
+        </ul>
+      </div>
+      <div class="detail-section">
+        <h4>Ressources & Outils utilisés</h4>
+        <div class="resource-chips">
+          <span class="rchip rchip-soft">📅 Microsoft Project</span>
+          <span class="rchip rchip-soft">📊 Microsoft Excel (RACI)</span>
+          <span class="rchip rchip-soft">🖥️ SolidWorks (modèle 3D Stirling)</span>
+          <span class="rchip rchip-meth">📋 Étude de faisabilité</span>
+          <span class="rchip rchip-meth">💰 Calcul coûts de production</span>
+          <span class="rchip rchip-meth">🌱 Étude environnementale</span>
+          <span class="rchip rchip-hard">⚙️ Moteur Stirling (modèle 3D fourni)</span>
+        </div>
+        <h4 style="margin-top:1.5rem">Coût de la bielle (usinage)</h4>
+        <ul>
+          <li>Coût matière : 17,76 € · Préparation : 76,11 €</li>
+          <li>Coût d'investissement : 1 054 € · Outil : 0,21 €</li>
+          <li>Coût usinage/pièce : 2,85 € · <strong>Total : 1 150,93 €</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIFS -->
+<section id="objectifs">
+  <div class="s-label">04 — Vision</div>
+  <h2 class="s-title">Mes <em>objectifs</em></h2>
+  <div class="obj-grid">
+    <div class="obj-card"><div class="obj-icon">🚗</div><h3>Secteur cible</h3><p>Automobile & Aéronautique — entreprises axées sur le développement de solutions écologiques en motorisation et en conception durable.</p></div>
+    <div class="obj-card"><div class="obj-icon">⚙️</div><h3>Domaine technique</h3><p>Concevoir, développer et révolutionner des systèmes mécaniques (moteurs) avec des outils CAO/FAO. Optimiser la motorisation tout en se souciant de l'environnement.</p></div>
+    <div class="obj-card"><div class="obj-icon">📊</div><h3>Voie professionnelle</h3><p>Manager de projet industriel — diriger des équipes, développer de nouvelles solutions mécaniques et contribuer au développement durable.</p></div>
+    <div class="obj-card"><div class="obj-icon">🌱</div><h3>Motivation</h3><p>Travailler sur des technologies de motorisation innovantes et écologiques, en équipe, sur des projets à fort impact pour les entreprises et la planète.</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="s-label">05 — Contact</div>
+  <h2 class="s-title">Travaillons <em>ensemble</em></h2>
+  <div class="contact-wrap">
+    <p>Vous souhaitez me contacter pour une opportunité de stage, une alternance, ou simplement échanger sur mon parcours ? N'hésitez pas.</p>
+    <a class="contact-email-btn" href="mailto:amoenyberekia@gmail.com">✉️ &nbsp; amoenyberekia@gmail.com</a>
+    <div class="contact-details">
+      <span class="cdet"><span>▸</span> IUT Saint-Denis — Sorbonne Paris Nord</span>
+      <span class="cdet"><span>▸</span> BUT GMP · 2ᵉ année</span>
+      <span class="cdet"><span>▸</span> Togo, Afrique de l'Ouest</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 AMOENY Komlan Bérékia Rodrigue</span>
+  <span>BUT GMP · IUT Saint-Denis · Sorbonne Paris Nord</span>
+</footer>
+
+<script>
+  window.addEventListener('scroll',()=>{
+    document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+  });
+
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:.2});
+  document.querySelectorAll('.skill-card').forEach(c=>obs.observe(c));
+
+  function toggleDetail(id){
+    const panel=document.getElementById(id);
+    const card=document.getElementById('card-'+id);
+    const arrow=document.getElementById('arr-'+id);
+    const isOpen=panel.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.proj-detail').forEach(p=>{
+      p.classList.remove('open');
+      p.style.display='none';
+    });
+    document.querySelectorAll('.proj-card').forEach(c=>c.classList.remove('open-card'));
+    document.querySelectorAll('.proj-arrow').forEach(a=>{
+      a.style.cssText='';
+      a.textContent='↗';
+    });
+
+    if(!isOpen){
+      panel.classList.add('open');
+      panel.style.display='block';
+      if(card) card.classList.add('open-card');
+      if(arrow){
+        arrow.style.background='linear-gradient(135deg,#7c3aed,#ec4899)';
+        arrow.style.color='#fff';
+        arrow.style.borderColor='transparent';
+        arrow.textContent='✕';
+      }
+      setTimeout(()=>{ panel.scrollIntoView({behavior:'smooth',block:'nearest'}); },100);
+    }
+  }
+</script>
+</body>
+</html>
